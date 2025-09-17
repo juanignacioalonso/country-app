@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { CountryService } from './../../services/country.service';
+import { Component, inject } from '@angular/core';
 import { SearchInputComponent } from '../../components/search-input/search-input.component';
 import { CountryListComponent } from '../../components/country-list/country-list.component';
 
@@ -9,9 +10,12 @@ import { CountryListComponent } from '../../components/country-list/country-list
 })
 export class ByCapitalPageComponent {
 
-  onSearch(value: string){
-    console.log({ value });
-    // Aquí puedes implementar la lógica para buscar por capital
+  countryService = inject(CountryService);
+
+  onSearch(query: string){
+      this.countryService.searchByCapital(query).subscribe((resp)=>{
+        console.log({ resp });
+      })
   }
 
  }

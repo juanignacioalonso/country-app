@@ -1,6 +1,8 @@
 <!--coutry-search-imput-->
 
-<coutry-search-input placeholder="Buscar por capital"/>
+<coutry-search-input placeholder="Buscar por capital"
+  (value)="onSearch($event)"
+/>
 
 <!--coutry-list-->
 <country-list/>
