@@ -1,6 +1,12 @@
 <!--coutry-search-imput-->
 
-<coutry-search-input placeholder="Buscar por capital"/>
+<coutry-search-input
+  (value)="query.set($event)"
+placeholder="Buscar por país"/>
 
 <!--coutry-list-->
-<country-list [countries]="[]">
+@if (countryResource.error()){
+  <h3>{{countryResource.error()}}</h3>
+} @if(countryResource.hasValue()){
+  <country-list [countries]="countryResource.value()!"/>
+}
