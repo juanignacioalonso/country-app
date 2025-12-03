@@ -1,9 +1,10 @@
 import { CountryService } from './../../services/country.service';
 import { Component, inject, resource, signal } from '@angular/core';
+import {rxResource} from '@angular/core/rxjs-interop'
 import { SearchInputComponent } from '../../components/search-input/search-input.component';
 import { CountryListComponent } from '../../components/country-list/country-list.component';
 import { Country } from '../../interfaces/country.interface';
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, of } from 'rxjs';
 
 
 @Component({
@@ -15,6 +16,21 @@ export class ByCapitalPageComponent {
   countryService = inject(CountryService);
   query = signal('')
 
+//Observable
+
+  countryResource = rxResource({
+    request: ()=> ({ query: this.query() }),
+    loader: ({ request })=>{
+      if (!request.query)return of([]);
+
+      return this.countryService.searchByCapital(request.query)
+
+    },
+  });
+
+
+//Promesas
+  /*
   countryResource = resource({
     request: ()=> ({ query: this.query() }),
     loader: async({ request })=>{
@@ -25,6 +41,8 @@ export class ByCapitalPageComponent {
       );
     },
   });
+
+  */
 
   //isLoading = signal(false)
   //isError = signal<string|null>(null)
