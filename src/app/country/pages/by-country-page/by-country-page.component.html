@@ -5,8 +5,11 @@
 placeholder="Buscar por país"/>
 
 <!--coutry-list-->
-@if (countryResource.error()){
-  <h3>{{countryResource.error()}}</h3>
-} @if(countryResource.hasValue()){
-  <country-list [countries]="countryResource.value()!"/>
-}
+
+<country-list
+  [countries]="countryResource.value() ?? []"
+  [errorMessage]="countryResource.error()"
+  [isEmpy]="countryResource.value()?.length == 0"
+  [isLoading]="countryResource.isLoading()"
+/>
+
