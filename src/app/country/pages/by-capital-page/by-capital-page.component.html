@@ -3,6 +3,7 @@
 <coutry-search-input
   placeholder="Buscar por capital"
   (value)="query.set($event)"
+  [debounceTime]="300"
 />
 
 <!--coutry-list-->
