@@ -1,4 +1,4 @@
-import { Component, effect, input, output, signal } from '@angular/core';
+import { Component, effect, input, linkedSignal, output, signal } from '@angular/core';
 
 @Component({
   selector: 'coutry-search-input',
@@ -7,11 +7,13 @@ import { Component, effect, input, output, signal } from '@angular/core';
 })
 export class SearchInputComponent {
 
-  placeholder = input('Buscar')
-  value = output<string>();
-  debounceTime = input(300)
+  placeholder = input('Buscar');
+  debounceTime = input(1000);
+  initialValue = input<string>();
 
-  inputValue = signal<string>('')
+  value = output<string>();
+
+  inputValue = linkedSignal<string>(()=>this.initialValue() ?? ''); // cuando se debe usar una señal como inicializada se debe usar linkedSignal
 
   debounceEffect = effect((onCleanup)=>{
 
